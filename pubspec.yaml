@@ -38,8 +38,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.5
   firebase_core: ^2.4.1
-  
-  auth: ^8.2.0
   firebase_auth: ^4.2.5
 
 dev_dependencies:

@@ -131,7 +131,7 @@ class _AuthScreen2State extends State<AuthScreen2> {
           .then((isSignedUp) {
         isLoading.value = false;
         if (isSignedUp) {
-          Get.toNamed(SplashScreen.routeName);
+          Get.offAllNamed(SplashScreen.routeName);
         } else {
           showAlertDialog(context, 'There was problem signing up');
         }

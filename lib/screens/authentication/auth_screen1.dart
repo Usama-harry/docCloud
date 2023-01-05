@@ -229,7 +229,7 @@ class _AuthScreen1State extends State<AuthScreen1> {
         .then((isSignedIn) {
       isLoading.value = false;
       if (isSignedIn) {
-        Get.toNamed(SplashScreen.routeName);
+        Get.offAllNamed(SplashScreen.routeName);
       } else {
         showAlertDialog(context, 'There was problem signing you in');
       }
