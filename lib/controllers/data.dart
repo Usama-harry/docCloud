@@ -47,7 +47,6 @@ class DataController extends GetxController {
       dataListener();
       return true;
     }).catchError((error) {
-      print(error);
       return false;
     });
   }

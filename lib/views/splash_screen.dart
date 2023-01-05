@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
         });
       } else {
         switchLoadingState();
-        Get.offNamed(AuthScreen1.routeName);
+        Get.toNamed(AuthScreen1.routeName);
       }
     });
     super.initState();
