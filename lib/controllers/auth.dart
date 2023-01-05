@@ -6,8 +6,12 @@ class AuthController extends GetxController {
 
   bool get isAuthenticated {
     user = FirebaseAuth.instance.currentUser;
-    update();
     return user != null;
+  }
+
+  void signOut() async {
+    await FirebaseAuth.instance.signOut();
+    user = null;
   }
 
   Future<bool> signUp(String name, String email, String password) async {
