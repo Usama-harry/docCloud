@@ -21,11 +21,20 @@ class MyDrawer extends StatelessWidget {
               height: AppBar().preferredSize.height +
                   MediaQuery.of(context).padding.top,
             ),
+            drawerItemBuilder(
+              Icons.person,
+              'Profile',
+              () {},
+            ),
+            drawerItemBuilder(
+              Icons.share,
+              'Tell a friend',
+              () {},
+            ),
             const Spacer(),
             drawerItemBuilder(
               Icons.logout,
               'Logout',
-              'End current session',
               () {
                 authController.signOut();
                 Get.offAllNamed(SplashScreen.routeName);
@@ -38,20 +47,35 @@ class MyDrawer extends StatelessWidget {
     );
   }
 
-  ListTile drawerItemBuilder(
+  Widget drawerItemBuilder(
     IconData icon,
     String title,
-    String subTitle,
     Function() onPressed,
   ) {
-    return ListTile(
-      onTap: onPressed,
-      leading: const Icon(
-        Icons.logout,
-        size: 35,
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 10,
+        vertical: 12,
       ),
-      title: Text(title),
-      subtitle: Text(subTitle),
+      child: InkWell(
+        onTap: onPressed,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Icon(
+              icon,
+              size: 25,
+            ),
+            const SizedBox(width: 20),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 17,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
