@@ -9,7 +9,7 @@ class AuthController extends GetxController {
     return user != null;
   }
 
-  void signOut() async {
+  Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
     user = null;
   }

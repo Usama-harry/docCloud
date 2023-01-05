@@ -35,8 +35,8 @@ class MyDrawer extends StatelessWidget {
             drawerItemBuilder(
               Icons.logout,
               'Logout',
-              () {
-                authController.signOut();
+              () async {
+                await authController.signOut();
                 Get.offAllNamed(SplashScreen.routeName);
               },
             ),

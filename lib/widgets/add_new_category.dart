@@ -30,7 +30,10 @@ class _AddNewCategoryState extends State<AddNewCategory> {
         centerTitle: true,
         actions: [
           isLoading
-              ? const CircularProgressIndicator.adaptive()
+              ? const Padding(
+                  padding: EdgeInsets.all(5),
+                  child: CircularProgressIndicator.adaptive(),
+                )
               : TextButton(
                   onPressed: validate,
                   child: const Text(
