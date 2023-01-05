@@ -6,7 +6,28 @@ class MyColors {
   static final backGroundColor = ThemeData.dark().scaffoldBackgroundColor;
 }
 
+//Styles
+const appBarTextStyle = TextStyle(
+  fontWeight: FontWeight.w500,
+);
+
+const titleTextStyle = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 25,
+);
+
+const descriptionTextStyle = TextStyle(
+  fontSize: 16,
+  color: Colors.grey,
+);
+
 //Functions
+
+extension StringExtension on String {
+  String capitalize() {
+    return '${this[0].toUpperCase()}${substring(1).toLowerCase()}';
+  }
+}
 
 void showNewSnackBar(String title, String message, {Icon? icon}) {
   Get.closeAllSnackbars();

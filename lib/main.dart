@@ -3,10 +3,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 
 //Screens
-import './screens/authentication/auth_screen1.dart';
-import './screens/authentication/auth_screen2.dart';
-import './screens/splash_screen.dart';
-import './screens/home_screen.dart';
+import 'views/authentication/auth_screen1.dart';
+import 'views/authentication/auth_screen2.dart';
+import 'views/splash_screen.dart';
+import 'views/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
       title: 'Doc cloud',
       theme: ThemeData(
         brightness: Brightness.dark,
+        fontFamily: 'Roboto',
       ),
       initialRoute: SplashScreen.routeName,
       defaultTransition: Transition.native,
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: AuthScreen1.routeName, page: () => const AuthScreen1()),
         GetPage(name: AuthScreen2.routeName, page: () => const AuthScreen2()),
         GetPage(name: SplashScreen.routeName, page: () => const SplashScreen()),
-        GetPage(name: HomeScreen.routeName, page: () => const HomeScreen())
+        GetPage(name: HomeScreen.routeName, page: () => HomeScreen()),
       ],
     );
   }

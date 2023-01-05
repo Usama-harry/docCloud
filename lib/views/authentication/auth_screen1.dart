@@ -56,10 +56,7 @@ class _AuthScreen1State extends State<AuthScreen1> {
                         : isRegisterMode
                             ? 'Enter your name'
                             : 'Reset Password',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                    ),
+                    style: titleTextStyle,
                   ),
                   const SizedBox(height: 10),
                   Text(
@@ -68,10 +65,7 @@ class _AuthScreen1State extends State<AuthScreen1> {
                         : isRegisterMode
                             ? 'Please enter your name to get started'
                             : 'Enter your email to send an reset password link',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey,
-                    ),
+                    style: descriptionTextStyle,
                   ),
                   const SizedBox(height: 10),
                   if (isRegisterMode)

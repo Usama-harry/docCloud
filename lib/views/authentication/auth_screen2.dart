@@ -54,18 +54,12 @@ class _AuthScreen2State extends State<AuthScreen2> {
                   const SizedBox(height: 70),
                   const Text(
                     'Enter your details',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                    ),
+                    style: titleTextStyle,
                   ),
                   const SizedBox(height: 10),
                   const Text(
                     'Please enter your details to continue',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey,
-                    ),
+                    style: descriptionTextStyle,
                   ),
                   const SizedBox(height: 10),
                   MyTextField(
