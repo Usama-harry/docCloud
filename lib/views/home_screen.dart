@@ -18,39 +18,42 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Doc Cloud',
-          style: appBarTextStyle,
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Get.to(
-                const AddNewCategory(),
-                fullscreenDialog: true,
-              );
-            },
-            icon: const Icon(
-              Icons.add,
-              size: 27,
-            ),
-          )
-        ],
-      ),
-      drawer: const MyDrawer(),
-      body: GetBuilder<DataController>(
-        builder: (controller) => GridView.builder(
-          padding: const EdgeInsets.all(10),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Doc Cloud',
+            style: appBarTextStyle,
           ),
-          itemCount: controller.categories.length,
-          itemBuilder: (context, index) => CategoryGridItem(
-            category: controller.categories[index],
+          actions: [
+            IconButton(
+              onPressed: () {
+                Get.to(
+                  const AddNewCategory(),
+                  fullscreenDialog: true,
+                );
+              },
+              icon: const Icon(
+                Icons.add,
+                size: 27,
+              ),
+            )
+          ],
+        ),
+        drawer: const MyDrawer(),
+        body: GetBuilder<DataController>(
+          builder: (controller) => GridView.builder(
+            padding: const EdgeInsets.all(10),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+            ),
+            itemCount: controller.categories.length,
+            itemBuilder: (context, index) => CategoryGridItem(
+              category: controller.categories[index],
+            ),
           ),
         ),
       ),

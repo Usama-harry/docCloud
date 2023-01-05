@@ -34,109 +34,112 @@ class _AuthScreen1State extends State<AuthScreen1> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: Center(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Icon(
-                    Icons.privacy_tip,
-                    color: Colors.green,
-                    size: 120,
-                  ),
-                  const SizedBox(height: 70),
-                  Text(
-                    isLoginMode
-                        ? 'Enter your details'
-                        : isRegisterMode
-                            ? 'Enter your name'
-                            : 'Reset Password',
-                    style: titleTextStyle,
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    isLoginMode
-                        ? 'Please enter your details to continue'
-                        : isRegisterMode
-                            ? 'Please enter your name to get started'
-                            : 'Enter your email to send an reset password link',
-                    style: descriptionTextStyle,
-                  ),
-                  const SizedBox(height: 10),
-                  if (isRegisterMode)
-                    MyTextField(
-                      label: 'Name',
-                      controller: _nameController,
-                      isRequired: true,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: Form(
+          key: _formKey,
+          child: Center(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Icon(
+                      Icons.privacy_tip,
+                      color: Colors.green,
+                      size: 120,
                     ),
-                  if (!isRegisterMode)
-                    MyTextField(
-                      label: 'Email',
-                      controller: _emailController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'This field is required';
-                        }
-                        if (!value.contains('@') || !value.contains('.')) {
-                          return 'Please enter a valid email';
-                        }
-                        return null;
-                      },
+                    const SizedBox(height: 70),
+                    Text(
+                      isLoginMode
+                          ? 'Enter your details'
+                          : isRegisterMode
+                              ? 'Enter your name'
+                              : 'Reset Password',
+                      style: titleTextStyle,
                     ),
-                  const SizedBox(height: 10),
-                  if (isLoginMode)
-                    if (isLoginMode)
+                    const SizedBox(height: 10),
+                    Text(
+                      isLoginMode
+                          ? 'Please enter your details to continue'
+                          : isRegisterMode
+                              ? 'Please enter your name to get started'
+                              : 'Enter your email to send an reset password link',
+                      style: descriptionTextStyle,
+                    ),
+                    const SizedBox(height: 10),
+                    if (isRegisterMode)
                       MyTextField(
-                        label: 'Password',
-                        controller: _passwordController,
+                        label: 'Name',
+                        controller: _nameController,
+                        isRequired: true,
+                      ),
+                    if (!isRegisterMode)
+                      MyTextField(
+                        label: 'Email',
+                        controller: _emailController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'This field is required';
                           }
+                          if (!value.contains('@') || !value.contains('.')) {
+                            return 'Please enter a valid email';
+                          }
                           return null;
                         },
-                        isObsecure: true,
                       ),
-                  const SizedBox(height: 10),
-                  if (!isRegisterMode) forgetPasswordButton(),
-                  const SizedBox(height: 30),
-                  elevatedButtonBuilder(),
-                  const SizedBox(height: 10),
-                  if (!isResetMode)
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          isLoginMode
-                              ? 'Don\'t have an account?'
-                              : 'Already have an account?',
-                          style: const TextStyle(
-                            color: Colors.grey,
-                          ),
+                    const SizedBox(height: 10),
+                    if (isLoginMode)
+                      if (isLoginMode)
+                        MyTextField(
+                          label: 'Password',
+                          controller: _passwordController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'This field is required';
+                            }
+                            return null;
+                          },
+                          isObsecure: true,
                         ),
-                        InkWell(
-                          onTap: () => setAuthMode(
-                            authMode == AuthMode.login
-                                ? AuthMode.register
-                                : AuthMode.login,
-                          ),
-                          child: Text(
-                            isLoginMode ? ' Register' : ' Login',
-                            style: TextStyle(
-                              color: MyColors.accentColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
+                    const SizedBox(height: 10),
+                    if (!isRegisterMode) forgetPasswordButton(),
+                    const SizedBox(height: 30),
+                    elevatedButtonBuilder(),
+                    const SizedBox(height: 10),
+                    if (!isResetMode)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            isLoginMode
+                                ? 'Don\'t have an account?'
+                                : 'Already have an account?',
+                            style: const TextStyle(
+                              color: Colors.grey,
                             ),
                           ),
-                        ),
-                      ],
-                    )
-                ],
+                          InkWell(
+                            onTap: () => setAuthMode(
+                              authMode == AuthMode.login
+                                  ? AuthMode.register
+                                  : AuthMode.login,
+                            ),
+                            child: Text(
+                              isLoginMode ? ' Register' : ' Login',
+                              style: TextStyle(
+                                color: MyColors.accentColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                  ],
+                ),
               ),
             ),
           ),
