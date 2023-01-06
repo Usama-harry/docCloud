@@ -66,6 +66,20 @@ class DataController extends GetxController {
     });
   }
 
+  Future<bool> deleteCategory(Category category) async {
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(authProvider.user!.uid)
+        .collection('categories')
+        .doc(category.id)
+        .delete()
+        .then((_) {
+      return true;
+    }).catchError((error) {
+      throw 'An error occured';
+    });
+  }
+
   void dataListener() {
     FirebaseFirestore.instance
         .collection('users')

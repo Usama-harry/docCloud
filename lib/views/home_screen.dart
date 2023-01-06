@@ -52,6 +52,7 @@ class HomeScreen extends StatelessWidget {
             ),
             itemCount: controller.categories.length,
             itemBuilder: (context, index) => CategoryGridItem(
+              key: Key(controller.categories[index].id),
               category: controller.categories[index],
             ),
           ),

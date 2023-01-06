@@ -27,13 +27,15 @@ class _AddEditNewCategoryState extends State<AddEditNewCategory> {
 
   final category = Get.arguments as Category?; //Edit mode if not NULL
   var isEditMode = false;
+  var isFirstTime = true;
 
   @override
   Widget build(BuildContext context) {
     //Edit mode
-    if (category != null) {
+    if (category != null && isFirstTime) {
       _titleController.text = category!.title;
       isEditMode = true;
+      isFirstTime = false;
     }
 
     return Scaffold(
@@ -125,7 +127,7 @@ class _AddEditNewCategoryState extends State<AddEditNewCategory> {
           Get.back();
           Get.snackbar(
             'Successfully changed',
-            '${category!.title} is successfully changed to ${_titleController.text}',
+            'Category name was successfully changed',
             backgroundColor: MyColors.backGroundColor,
           );
         }).catchError((error) {

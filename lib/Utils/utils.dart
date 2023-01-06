@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,9 +23,9 @@ const descriptionTextStyle = TextStyle(
 );
 
 //Functions
-
+@override
 extension StringExtension on String {
-  String capitalize() {
+  String capitalFirstLetter() {
     return '${this[0].toUpperCase()}${substring(1).toLowerCase()}';
   }
 }
@@ -71,6 +72,42 @@ void showAlertDialog(BuildContext context, String message, {isError = true}) {
             child: const Text('Okay'),
           ),
         )
+      ],
+    ),
+  );
+}
+
+void showConfirmDialog(
+  BuildContext context,
+  String message,
+  Function() onCancel,
+  Function() onDone,
+) {
+  showDialog(
+    context: context,
+    builder: (context) => CupertinoAlertDialog(
+      title: const Text(
+        'Confirm',
+        textAlign: TextAlign.center,
+      ),
+      content: Text(
+        message,
+        textAlign: TextAlign.center,
+      ),
+      actions: [
+        TextButton(
+          onPressed: onCancel,
+          child: const Text('Cancel'),
+        ),
+        TextButton(
+          onPressed: onDone,
+          style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all(
+              Colors.red,
+            ),
+          ),
+          child: const Text('Okay'),
+        ),
       ],
     ),
   );
