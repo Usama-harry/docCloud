@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: HomeScreen.routeName, page: () => HomeScreen()),
         GetPage(
           name: DocumentsScreen.routeName,
-          page: () => DocumentsScreen(),
+          page: () => const DocumentsScreen(),
         )
       ],
     );
