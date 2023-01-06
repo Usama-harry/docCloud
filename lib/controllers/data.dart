@@ -51,6 +51,21 @@ class DataController extends GetxController {
     });
   }
 
+  Future<bool> changeCategoryName(String newName, Category category) async {
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(authProvider.user!.uid)
+        .collection('categories')
+        .doc(category.id)
+        .update({
+      'title': newName,
+    }).then((_) {
+      return true;
+    }).catchError((error) {
+      throw 'An error occured';
+    });
+  }
+
   void dataListener() {
     FirebaseFirestore.instance
         .collection('users')

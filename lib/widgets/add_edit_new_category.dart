@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+//Models
+import '../models/Category/category.dart';
 //Controllers
 import '../controllers/data.dart';
 //Widgets
@@ -8,25 +10,35 @@ import 'my_text_field.dart';
 //Utils
 import '../Utils/utils.dart';
 
-class AddNewCategory extends StatefulWidget {
+class AddEditNewCategory extends StatefulWidget {
   static const routeName = '/addNewCategory';
-  const AddNewCategory({super.key});
+  const AddEditNewCategory({super.key});
 
   @override
-  State<AddNewCategory> createState() => _AddNewCategoryState();
+  State<AddEditNewCategory> createState() => _AddEditNewCategoryState();
 }
 
-class _AddNewCategoryState extends State<AddNewCategory> {
+class _AddEditNewCategoryState extends State<AddEditNewCategory> {
   final _titleController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   var isLoading = false;
 
   final dataController = Get.find<DataController>();
+
+  final category = Get.arguments as Category?; //Edit mode if not NULL
+  var isEditMode = false;
+
   @override
   Widget build(BuildContext context) {
+    //Edit mode
+    if (category != null) {
+      _titleController.text = category!.title;
+      isEditMode = true;
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Category'),
+        title: Text(isEditMode ? 'Edit Category' : 'Add Category'),
         centerTitle: true,
         actions: [
           isLoading
@@ -35,10 +47,10 @@ class _AddNewCategoryState extends State<AddNewCategory> {
                   child: CircularProgressIndicator.adaptive(),
                 )
               : TextButton(
-                  onPressed: validate,
-                  child: const Text(
-                    'Add',
-                    style: TextStyle(
+                  onPressed: () => validate(isEditMode),
+                  child: Text(
+                    isEditMode ? 'Save' : 'Add',
+                    style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -60,8 +72,10 @@ class _AddNewCategoryState extends State<AddNewCategory> {
                 style: titleTextStyle,
               ),
               const SizedBox(height: 10),
-              const Text(
-                'Please provide the name of new category',
+              Text(
+                isEditMode
+                    ? 'Please provide the new name for ${category!.title.toLowerCase()} category'
+                    : 'Please provide the name of new category',
                 style: descriptionTextStyle,
               ),
               const SizedBox(height: 30),
@@ -84,21 +98,41 @@ class _AddNewCategoryState extends State<AddNewCategory> {
     });
   }
 
-  void validate() {
+  void validate(bool isEditMode) {
     if (_formKey.currentState!.validate()) {
-      switchLoadingState();
-      dataController.addCategory(_titleController.text).then((added) {
+      if (!isEditMode) {
+        // Add mode
         switchLoadingState();
-        Get.back();
-        Get.snackbar(
-          'Successfully added',
-          'Your new category was successfully added',
-          backgroundColor: MyColors.backGroundColor,
-        );
-      }).catchError((error) {
+        dataController.addCategory(_titleController.text).then((added) {
+          switchLoadingState();
+          Get.back();
+          Get.snackbar(
+            'Successfully added',
+            'Your new category was successfully added',
+            backgroundColor: MyColors.backGroundColor,
+          );
+        }).catchError((error) {
+          switchLoadingState();
+          showAlertDialog(context, error.toString(), isError: true);
+        });
+      } else // Edit mode
+      {
         switchLoadingState();
-        showAlertDialog(context, error.toString(), isError: true);
-      });
+        dataController
+            .changeCategoryName(_titleController.text, category!)
+            .then((added) {
+          switchLoadingState();
+          Get.back();
+          Get.snackbar(
+            'Successfully changed',
+            '${category!.title} is successfully changed to ${_titleController.text}',
+            backgroundColor: MyColors.backGroundColor,
+          );
+        }).catchError((error) {
+          switchLoadingState();
+          showAlertDialog(context, error.toString(), isError: true);
+        });
+      }
     }
   }
 

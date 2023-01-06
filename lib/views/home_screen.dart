@@ -8,7 +8,7 @@ import '../Utils/utils.dart';
 //Widgets
 import '../widgets/category_grid_item.dart';
 import '../widgets/my_drawer.dart';
-import '../widgets/add_new_category.dart';
+import '../widgets/add_edit_new_category.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home';
@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
             IconButton(
               onPressed: () {
                 Get.to(
-                  const AddNewCategory(),
+                  const AddEditNewCategory(),
                   fullscreenDialog: true,
                 );
               },
